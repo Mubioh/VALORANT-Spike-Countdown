@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>VALORANT Spike Timer</title>
+    <style>
+        body {
+            font-family: Inter, sans-serif;
+            background-color: #000000;
+            color: #FD4556;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        body.red-background {
+            background-color: #BD3944;
+            color: #FFFBF5;
+        }
+
+        h1 {
+            margin-top: 50px;
+            color: #FFFBF5;
+        }
+
+        #timer {
+            font-size: 100px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Spike Timer</h1>
+    <div id="timer">45</div>
+
+    <script>
+        var body = document.getElementsByTagName("body")[0];
+        var timer = document.getElementById("timer");
+        var countdown;
+
+        function startTimer() {
+            body.removeEventListener("click", startTimer);
+            body.removeEventListener("touchstart", startTimer);
+            countdown = setInterval(function () {
+                timer.innerHTML -= 1;
+                if (timer.innerHTML === "6") {
+                    body.classList.add("red-background");
+                    timer.style.color = "#000";
+                }
+                if (timer.innerHTML === "0") {
+                    clearInterval(countdown);
+                    alert("The Spike has exploded!");
+                    timer.innerHTML = "45";
+                    body.classList.remove("red-background");
+                    timer.style.color = "#FD4556";
+                    body.addEventListener("click", startTimer);
+                    body.addEventListener("touchstart", startTimer);
+                }
+            }, 1000);
+        }
+
+        body.addEventListener("click", startTimer);
+        body.addEventListener("touchstart", startTimer);
+    </script>
+</body>
+
+</html>
